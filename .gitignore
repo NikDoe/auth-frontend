@@ -1,0 +1,6 @@
+.idea
+.prettierrc.js
+.env
+
+node_modules
+build
