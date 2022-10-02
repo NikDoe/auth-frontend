@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from '../api/axios';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -49,10 +50,41 @@ const Register = () => {
 			setErrMsg('Invalid Entry');
 			return;
 		}
+
+		 try {
+            const response = await axios.post('/register',
+                JSON.stringify({ user, password : pwd }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            setSuccess(true);
+            setUser('');
+            setPwd('');
+            setMatchPwd('');
+        } catch (err) {
+            if (!err?.response) {
+                setErrMsg('Нет ответа от сервера');
+            } else if (err.response?.status === 409) {
+                setErrMsg(err.response.data.message);
+				console.log(err.response);
+            } else {
+                setErrMsg('Регистрация невозможна')
+            }
+            errRef.current.focus();
+        }
 	};
 
 	return (
-		<section>
+		<>
+			{
+				success ? <section>
+                    <h1>Вы успешно зарегестрированы😄!</h1>
+                    <p>
+                        <a href="#">Войти</a>
+                    </p>
+                </section> : <section>
 			<p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
 				{errMsg}
 			</p>
@@ -159,11 +191,12 @@ const Register = () => {
 				Уже зарегестрированы?
 				<br />
 				<span className="line">
-					{/*put router link here*/}
 					<a href="#">Войти</a>
 				</span>
 			</p>
 		</section>
+			}
+		</>
 	);
 };
 
