@@ -107,11 +107,12 @@ button {
 }
 
 .errmsg {
-  background-color: lightpink;
-  color: firebrick;
+  background-color: rgb(255, 191, 202);
+  color: rgb(110, 0, 0);
   font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+  border-radius: 5px;
 }
 
 .line {
