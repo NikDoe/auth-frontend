@@ -1,16 +1,13 @@
-import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from '../context/AuthProvider';
+import { useRef, useState, useEffect } from 'react';
 import axios from '../api/axios';
 
 const Login = () => {
-	const { setAuth } = useContext(AuthContext);
 	const userRef = useRef();
 	const errRef = useRef();
 
 	const [user, setUser] = useState('');
 	const [pwd, setPwd] = useState('');
 	const [errMsg, setErrMsg] = useState('');
-	const [success, setSuccess] = useState(false);
 
 	useEffect(() => {
 		userRef.current.focus();
@@ -20,7 +17,7 @@ const Login = () => {
 		setErrMsg('');
 	}, [user, pwd]);
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 
 		try {
@@ -29,7 +26,9 @@ const Login = () => {
 				withCredentials: true,
 			});
 			console.log(JSON.stringify(response?.data));
-			
+
+			setUser('');
+			setPwd('');
 		} catch (err) {
 			if (!err?.response?.data) {
 				setErrMsg('Нет ответа от сервера');
@@ -41,7 +40,7 @@ const Login = () => {
 				setErrMsg('Не удалось войти');
 			}
 		}
-	}
+	};
 
 	return (
 		<section>
