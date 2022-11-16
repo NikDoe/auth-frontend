@@ -1,8 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
+import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 
 const Login = () => {
+	const { setAuth } = useAuth();
 	const userRef = useRef();
 	const errRef = useRef();
 
@@ -26,6 +28,10 @@ const Login = () => {
 				headers: { 'Content-Type': 'application/json' },
 				withCredentials: true,
 			});
+
+			const accessToken = response?.data?.accessToken;
+			const roles = response?.data?.roles;
+			setAuth({ user, pwd, accessToken, roles });
 
 			setUser('');
 			setPwd('');
