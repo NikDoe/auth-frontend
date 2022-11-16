@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 
 const Login = () => {
@@ -25,7 +26,6 @@ const Login = () => {
 				headers: { 'Content-Type': 'application/json' },
 				withCredentials: true,
 			});
-			console.log(JSON.stringify(response?.data));
 
 			setUser('');
 			setPwd('');
@@ -74,8 +74,7 @@ const Login = () => {
 				Нужен аккаунт?
 				<br />
 				<span className="line">
-					{/*put router link here*/}
-					<a href="#">Зарегистрироваться</a>
+					<Link to="/register">Регистрация</Link>
 				</span>
 			</p>
 		</section>
