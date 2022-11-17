@@ -7,7 +7,7 @@ const Unauthorized = () => {
 
 	return (
 		<section>
-			<h1>вы не авторизованы</h1>
+			<h1>недостаточно прав</h1>
 			<br />
 			<p>у вас нет доступа к этой странице.</p>
 			<div className="flexGrow">
