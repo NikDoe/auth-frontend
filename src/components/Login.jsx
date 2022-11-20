@@ -70,7 +70,7 @@ const Login = () => {
 			</p>
 			<h1>Вход в аккаунт</h1>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="username">Username:</label>
+				<label htmlFor="username">Имя пользователя:</label>
 				<input
 					type="text"
 					id="username"
